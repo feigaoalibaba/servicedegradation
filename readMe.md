@@ -3,8 +3,8 @@ java 服务屏蔽开关系统，可以手工降级服务。关闭服务 基于sp
 
 使用指南：
 1.在spring配置文件中添加如下，其中switch-service-pointcut是添加紧急情况下需要屏蔽的方法列表
-<aop:config proxy-target-class="true"></aop:config>
 
+<aop:config proxy-target-class="true"></aop:config>
 <bean id="switchInteceptor" class="com.bj58.interceptor.SwitchInteceptor">
     </bean>
     <bean id="switch-service-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
@@ -17,11 +17,8 @@ java 服务屏蔽开关系统，可以手工降级服务。关闭服务 基于sp
     <aop:config>
         <aop:advisor advice-ref="switchInteceptor" pointcut-ref="switch-service-pointcut"/>
     </aop:config>
-    
     <bean id="switchControlHttpServer" class="com.bj58.server.SwitchControlHttpServer" init-method="init"></bean>
-    
     <bean id="testService" class="com.bj58.test.TestServiceImpl" />
-    
     <bean id="testController" class="com.bj58.test.TestController" />
 </bean>
 
@@ -42,8 +39,7 @@ public class TestServiceImpl implements TestService{
 	public List<TestBean> getNames(){
 		return null;
 	}
-	
-//	http://localhost:8080/control/a.htm?classmethod=com.bj58.test.TestServiceImpl.getBeans(java.lang.String,int,java.lang.Integer)&status=open&jsonResult={%22catList%22:[%22123%22,%22456%22,%22789%22],%22id%22:1,%22name%22:%22aaa%22}
+	//http://localhost:8080/control/a.htm?classmethod=com.bj58.test.TestServiceImpl.getBeans(java.lang.String,int,java.lang.Integer)&status=open&jsonResult={%22catList%22:[%22123%22,%22456%22,%22789%22],%22id%22:1,%22name%22:%22aaa%22}
 	public TestBean getBeans(String name,int a,Integer m1){
 		TestBean bean = new TestBean();
 		bean.setId(22);
@@ -55,6 +51,7 @@ public class TestServiceImpl implements TestService{
 	}
 
 }
+
 3.调用示例代码
 public class MainTest {
 	public static void main(String[] args) {
